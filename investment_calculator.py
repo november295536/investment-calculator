@@ -168,19 +168,29 @@ class InvestmentCalculator:
 
         # 使用tabulate美化輸出
         table_data = []
+        cumulative_investment = Decimal('0') # Initialize cumulative investment
+        total_funds = asset['available_funds'] # Get total funds for percentage calculation
+
         for entry in entry_points:
+            # Update cumulative investment
+            cumulative_investment += entry['investment_amount']
+            # Calculate cumulative percentage
+            cumulative_percentage = (cumulative_investment / total_funds * Decimal('100')).quantize(Decimal('0.01'), rounding=decimal.ROUND_HALF_UP)
+
             table_data.append([
                 entry['entry_number'],
                 f"{entry['drop_percentage']}%",
                 entry['entry_price'],
                 entry['investment_amount'],
                 f"{entry['weight_percentage']}%",
+                cumulative_investment.quantize(Decimal('0.01'), rounding=decimal.ROUND_HALF_UP), # Add cumulative amount
+                f"{cumulative_percentage}%", # Add cumulative percentage
                 entry['shares']
             ])
 
         # Translated headers to English
-        # headers = ["進場次數", "下跌百分比", "進場價格", "投入金額", "資金權重", "購買股數"]
-        headers = ["Entry No.", "Drop %", "Entry Price", "Inv. Amount", "Weight %", "Shares"]
+        # Add new headers for cumulative columns
+        headers = ["Entry No.", "Drop %", "Entry Price", "Inv. Amount", "Weight %", "Cum. Inv.", "Cum. Weight %", "Shares"]
         # Changed tablefmt from "grid" to "psql"
         print(tabulate(table_data, headers=headers, tablefmt="psql", numalign="right", stralign="center"))
 
