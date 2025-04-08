@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "name": "VTI",
+      "available_funds": "10000",
+      "current_price": "248",
+      "max_drop_percentage": "40",
+      "entry_interval": "5",
+      "acceleration_factor": "1.5"
+    },
+    {
+      "name": "AAPL",
+      "available_funds": "5000",
+      "current_price": "169.5",
+      "max_drop_percentage": "40",
+      "entry_interval": "5",
+      "acceleration_factor": "2.0"
+    }
+  ]
+}
